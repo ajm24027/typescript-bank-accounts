@@ -1,0 +1,16 @@
+{
+  "name": "typescript-bank-accounts",
+  "version": "1.0.0",
+  "description": "bank account app running in node",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anthony Medina",
+  "license": "ISC",
+  "dependencies": {
+    "prompt-sync": "^4.2.0",
+    "ts-node": "^10.9.1"
+  }
+}
