@@ -79,3 +79,30 @@ If the ROI is greater than $50,000, the user is told their accrual sum is capped
     }
   }
 ```
+
+#### I should be able to acccess a list of my favorite accounts, add an account to said list, and remove an account from the list.
+
+The adding and listing accounts are simple enough. AddAccountToFavorites uses a simple push of the account noted in the parameter, and getFavoriteAccounts is a simple return statement, of all the bank accounts in a class.
+
+```typescript
+  addAccountToFavorites(account: BankAccount): void {
+    this.favoriteAccounts.push(account)
+  }
+
+  getFavoriteAccounts(): BankAccount[] {
+    return this.favoriteAccounts
+  }
+```
+
+Removing an account is a little more sophisticated but not much more. We store the account (or the I.D. rather) that we want to remove into a variable using the findIndex method. We pass an account as the parameter, the findIndex method finds the index of the bank account id that matches the account that we passed. If the account isn't found in the array, we throw an error, otherwise, we splice a single index at the index equal to the acctToRemove variable.
+
+```typescript
+  removeAccountById(id: number): void {
+    const acctToRemove = this.favoriteAccounts.findIndex((account: BankAccount) => account.id === id)
+
+    if (acctToRemove === -1) {
+      throw new Error('Account not found in favorites!')
+    }
+    this.favoriteAccounts.splice(acctToRemove, 1)
+  }
+```

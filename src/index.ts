@@ -13,10 +13,13 @@
 class BankAccount {
   private balance : number
   private name: string
+  private favoriteAccounts: BankAccount[] = []
+  private id: number 
 
-  constructor(balance: number, name: string) {
+  constructor(balance: number, name: string, id: number) {
     this.balance = balance
     this.name = name
+    this.id = id
 }
 
   addFunds(deposit: number) {
@@ -65,7 +68,32 @@ transferMoney(amount: number, account: BankAccount) {
     }
   }
 
-  // transferFunds(accountName: string, funds: number) {
+  addAccountToFavorites(account: BankAccount): void {
+    this.favoriteAccounts.push(account)
+  }
+
+  getFavoriteAccounts(): BankAccount[] {
+    return this.favoriteAccounts
+  }
+
+  removeAccountById(id: number): void {
+    const acctToRemove = this.favoriteAccounts.findIndex((account: BankAccount) => account.id === id)
     
-  // }
+    if (acctToRemove === -1) {
+      throw new Error('Account not found in favorites!')
+    }
+    this.favoriteAccounts.splice(acctToRemove, 1)
+  }
+
 }
+
+const account1 = new BankAccount(40000, 'AJs Super Awesome Account', 1)
+const account2 = new BankAccount(10000000, 'Savings Account', 2)
+account1.addAccountToFavorites(account2)
+account1.addAccountToFavorites(account1)
+console.log(account1.getFavoriteAccounts)
+console.log(account1.getFavoriteAccounts().length)
+console.log(account1.getFavoriteAccounts()[0].checkBalance())
+account1.removeAccountById(2)
+console.log(account1.getFavoriteAccounts().length)
+console.log(account1)
